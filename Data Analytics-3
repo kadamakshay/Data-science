@@ -1,0 +1,85 @@
+import pandas as pd 
+import numpy as np 
+import seaborn as sns 
+import matplotlib.pyplot as plt
+
+df = pd.read_csv(r"C:\Users\lenovo\Desktop\data science Assignments\dataset\Iris.csv")
+print(df.head())
+
+
+#shape
+print(df.shape)
+
+# check null values 
+print(df.isnull().sum())
+
+#inforamtion
+print(df.info())
+
+#describe 
+print(df.describe())
+
+#correlation
+print(df.corr())
+
+
+x = df[["SepalLengthCm", "SepalWidthCm" , "PetalLengthCm", "PetalWidthCm"]]
+
+y = df[['Species']]
+
+#labelEncoding 
+from sklearn.preprocessing import LabelEncoder
+le_x = LabelEncoder()
+y = le_x.fit_transform(y)
+
+#split the data
+
+from sklearn.model_selection import train_test_split
+
+x_train,x_test,y_train,y_test = train_test_split(x,y, test_size=0.2, random_state=42)
+
+
+#create model 
+
+from sklearn.naive_bayes import GaussianNB
+model = GaussianNB()
+model.fit(x_train,y_train)
+y_pred = model.predict(x_test)
+
+#accuracy of the model
+from sklearn.metrics import accuracy_score, mean_squared_error
+acc = accuracy_score(y_test, y_pred)
+print("Accuracy Of the model: ", acc)
+
+#confusion matrix 
+from sklearn.metrics import confusion_matrix
+
+cm = confusion_matrix(y_test, y_pred)
+print(cm)
+
+
+print("Precision for Iris-setosa")
+precision_verginica = cm[0][0]/(cm[0].sum())
+print(precision_verginica)
+
+print("Precision for Iris-versicolor")
+precision_verginica = cm[1][1]/(cm[1].sum())
+print(precision_verginica)
+
+print("Precision for Iris-virginica")
+precision_verginica = cm[2][2]/(cm[2].sum())
+print(precision_verginica)
+
+#Recall
+
+print("Recall for Iris-setosa")
+recall_setosa = cm.T[0][0]/(cm.T[0].sum())
+print(recall_setosa)
+
+print("Recall for Iris-versicolor")
+recall_versicolor = cm.T[1][1]/(cm.T[1].sum())
+print(recall_versicolor)
+
+print("Recall for Iris-virginica")
+recall_verginica = cm.T[2][2]/(cm.T[2].sum())
+print(recall_verginica)
