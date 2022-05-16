@@ -1,0 +1,103 @@
+import nltk 
+import re
+
+String = """
+    Dr. APJ Abdul Kalam is not a new name. 
+    He served India as the 11th president. 
+    He was born on 15 October 1931 in Rameswaram, Tamil Nadu. 
+    Because of his works in the field of science and especially missile and rockets, 
+    he is also called the Missile Man of India. He was a famous scientist. 
+    He worked with organizations like DRDO (Defense Research and Development Organization) and 
+    ISRO (Indian Space Research Organization).
+"""
+#Tokenization
+#sentence Tokenization
+sent_tokens = nltk.sent_tokenize(String)
+print(sent_tokens)
+
+
+#word Tokenization
+
+word_tokens = nltk.word_tokenize(String)
+print(word_tokens)
+
+
+## POS (Past of Speech) Tagging
+sent_tokens = nltk.word_tokenize(String)
+
+for token in sent_tokens:
+    print(nltk.pos_tag([token]))
+    
+#Stop Words Removal
+#print stop words of english
+from nltk.corpus import stopwords
+import re
+stop_words = set(stopwords.words("english"))
+print(stop_words)
+
+
+#remove stopwords from string 
+text = re.sub("[^a-zA-Z]"," ", string=String)
+tokens = nltk.word_tokenize(text.lower())
+filtered_text = list()
+for w in tokens:
+    if w not in stop_words:
+        filtered_text.append(w)
+
+print("Filterd Sentence: ", filtered_text)
+
+
+
+#Stemming and Lemmatization
+
+#Stemming
+from nltk.stem import PorterStemmer
+ps = PorterStemmer()
+word_list = filtered_text
+for w in word_list:
+    rootWords=ps.stem(w)
+    print(rootWords)
+    
+#Lemmatization
+from nltk.stem import WordNetLemmatizer
+wordnet_lemma = WordNetLemmatizer()
+
+word_list = filtered_text
+for w in word_list:
+    print(f"Lemma for {w} is {wordnet_lemma.lemmatize(w)} ")
+    
+
+
+#TFIDF (Term Frequency Inverse Document Frequency)
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+#### clean the text
+
+
+#make string lowercase
+string = String.lower()
+
+#Remove Punctuations, Numbers
+
+text = re.sub("[^a-zA-Z]"," ", string)
+
+#tokenization
+tokens = nltk.word_tokenize(text.lower())
+
+#filter text
+removedStopWordList = list()
+for w in tokens:
+    if w not in stop_words:
+        removedStopWordList.append(w)
+        
+#stemming
+filteredText = list()
+for w in removedStopWordList:
+    rootWords=ps.stem(w)
+    filteredText.append(rootWords)
+    
+    
+vector = TfidfVectorizer()
+
+X = vector.fit_transform(filteredText)
+print(X.toarray()[:])
