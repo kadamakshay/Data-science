@@ -1,0 +1,97 @@
+#import libraries
+import pandas as pd
+import numpy as np
+import seaborn as sns
+from matplotlib import pyplot as plt
+import warnings
+warnings.filterwarnings('ignore')
+
+df= sns.load_dataset('titanic')
+print(df.head(5))
+#Columns 
+print(df.columns)
+
+#histogram
+sns.histplot(df['fare'],bins=10)
+plt.show()
+
+
+#information of dataset
+print(df.info())
+
+#statistical information of data
+print(df.describe())
+
+#data types
+print(df.dtypes)
+
+#shape of the dataset
+print(df.shape)
+
+#plots 
+
+#mutual distribution 
+sns.jointplot(df['age'],df['fare'])
+plt.show()
+
+#check how many passangers has died
+plt.figure(figsize=(6,5))
+plt.bar(df.survived.value_counts().keys(),df.survived.value_counts(),color=['green','#db0000'])
+plt.ylabel("Count")
+plt.xlabel("Survived")
+plt.title("Survived/Not Survived")
+plt.show()
+
+perc_died_passengers = df.survived.value_counts()[0]/df.shape[0]*100
+perc_alive_passengers = df.survived.value_counts()[1]/df.shape[0]*100
+print("-----------------")
+print(f"Out of {df.shape[0]} {round(perc_died_passengers)}"'%'" Passangers died")
+
+
+#check survived passangers by Sex
+
+plt.figure(figsize=(6,5))
+sns.catplot(x='sex',data=df,kind='count',hue='survived')
+plt.show()
+print(df.survived.value_counts())
+
+
+#count the how many passanger in which class by sex
+plt.figure(figsize=(6,5))
+sns.catplot(x='pclass',data=df,kind='count',hue='sex')
+plt.show()
+
+
+perc_died_passengers = df.survived.value_counts()[0]/df.shape[0]*100
+print(f"Percentage of Died Passagnge: {perc_died_passengers}%")
+
+
+
+#check for null values
+
+print(df.isnull().sum())
+
+
+#Survived by Age
+plt.figure(figsize=(12,6))
+sns.distplot(df[df['survived']==0]["age"],color='orange')
+sns.distplot(df[df['survived']==1]["age"],color='green')
+plt.show()
+
+#Survived with fare
+plt.figure(figsize=(12,6))
+sns.distplot(df[df['survived']==0]["fare"],color='b')
+sns.distplot(df[df['survived']==1]["fare"],color='g')
+plt.show()
+
+
+#BoxPlot
+plt.figure(figsize=(12,6))
+sns.boxplot(x='sex', y='age', data=df)
+plt.show()
+
+
+#StripPlot
+plt.figure(figsize=(12,6))
+sns.boxplot(x='sex', y='age', data=df, hue="survived")
+plt.show()
