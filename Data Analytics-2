@@ -1,0 +1,75 @@
+#import required libraries 
+
+
+import pandas as pd 
+import numpy as np
+import matplotlib.pyplot as plt 
+import seaborn as sns
+
+#read the dataset
+df = pd.read_csv(r"C:\Users\lenovo\Desktop\data science Assignments\dataset\Social_Network_Ads.csv")
+print(df.head())
+
+#drop unnecessary columns 
+df = df.drop(["User ID","Gender"],axis=1)
+print(df.head())
+
+
+#describe 
+print(df.describe())
+
+#shape of the dataset
+print(df.shape)
+
+#check for null values 
+print(df.isnull().sum())
+
+
+#split the data into training and testing set 
+X = df[["Age", "EstimatedSalary"]]
+y = df[['Purchased']]
+
+from sklearn.model_selection import train_test_split
+
+x_train,x_test,y_train,y_test = train_test_split(X,y, test_size=0.2, random_state=42)
+
+print("length of X: ",len(X))
+print("length of X_train: ",len(x_train))
+print("length of X test: ",len(x_test))
+print("length of Y: ",len(y))
+print("length of y_train: ",len(y_train))
+print("length of y_test: ",len(y_test))
+
+
+#Model Building Logistic regression 
+from sklearn.linear_model import LogisticRegression
+
+lr = LogisticRegression()
+lr.fit(x_train,y_train)
+y_pred = lr.predict(x_test)
+
+#accuracy of the model
+from sklearn.metrics import accuracy_score, mean_squared_error
+acc = accuracy_score(y_test, y_pred)
+print("Accuracy Of the model: ", acc)
+
+#confusion matrix 
+from sklearn.metrics import confusion_matrix
+
+cm = confusion_matrix(y_test, y_pred)
+print(cm)
+
+#classification report
+
+from sklearn.metrics import classification_report
+
+cr = classification_report(y_test, y_pred)
+print(cr)
+
+#Recall (TP/TP+FN)
+recall = (np.diag(cm)[0])/(np.diag(cm)[0])+(cm[1][0])
+print(recall)
+
+#Precision (TP/TP+FP)
+precision = (np.diag(cm)[0])/(np.diag(cm)[0])+(cm[1][1])
+print(precision)
