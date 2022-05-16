@@ -1,0 +1,57 @@
+#import libraries
+import pandas as pd
+import numpy as np
+from matplotlib import pyplot as plt
+import seaborn as sns
+import warnings
+warnings.filterwarnings('ignore')
+import os
+
+cols = ["Sepal_Length","Sepal_Width","Petal_Length","Petal_Width","Species"]
+
+#read the dataset
+dataset_path = os.getcwd()+"\dataset\iris_data.csv"
+print(dataset_path)
+df = pd.read_csv(dataset_path,names=cols)
+
+#first 5 records
+print(df.head())
+
+#shape of the dataset
+print(df.shape)
+
+#check for null values
+print(df.isnull().sum())
+
+
+#data types
+print(df.dtypes)
+
+
+#Value counts
+print(df.Species.value_counts())
+
+#columns for plotting histogram
+cols = ["Sepal_Length","Sepal_Width","Petal_Length","Petal_Width"]
+
+#Histogram
+plt.figure(figsize=(14,7))
+for i in range(len(cols)):
+    plt.subplot(2,2,i+1)
+    sns.histplot(df[str(cols[i])])
+plt.show()
+
+#boxplot
+plt.figure(figsize=(14,7))
+for i in range(len(cols)):
+    plt.subplot(2,2,i+1)
+    sns.boxplot(df[str(cols[i])])
+plt.show()
+
+
+#distribution
+plt.figure(figsize=(14,7))
+for i in range(len(cols)):
+    plt.subplot(2,2,i+1)
+    sns.distplot(df[str(cols[i])])
+plt.show()
