@@ -1,0 +1,87 @@
+#import libraries
+import pandas as pd
+import numpy as np
+import seaborn as sns
+from matplotlib import pyplot as plt
+
+import warnings
+warnings.filterwarnings('ignore')
+
+#load the dataset
+df = sns.load_dataset('titanic')
+print(df.head())
+
+
+#information of dataset
+print(df.info())
+
+#statistical information of data
+print(df.describe())
+
+#data types
+print(df.dtypes)
+
+#shape of the dataset
+print(df.shape)
+
+#check for null values 
+print(df.isnull().sum())
+
+#dropna values 
+df = df.dropna()
+
+print(df.isnull().sum())
+
+#check for survived by gender and age columns
+
+sns.catplot(x='sex',hue="survived",kind='count', data=df)
+plt.show()
+
+
+#Survived with Age
+plt.figure(figsize=(12,6))
+sns.distplot(df[df['survived']==0]["age"],color='orange')
+sns.distplot(df[df['survived']==1]["age"],color='green')
+plt.title("Survived with Age")
+plt.show()
+
+
+#get the survived count of male by age
+mask1 = df['sex']=="male"
+mask2 = df['survived']==1
+male_survived = df[mask1 & mask2]
+
+sns.displot(male_survived.age)
+plt.title("survived count of male")
+plt.show()
+
+
+
+#get the non-survived count of male by age
+mask1 = df['sex']=="male"
+mask2 = df['survived']==0
+male_not_survived = df[mask1 & mask2]
+
+sns.displot(male_not_survived.age)
+plt.title("non-survived count of male ")
+
+plt.show()
+
+#get the survived count of female by age 
+mask1 = df['sex']=="female"
+mask2 = df['survived']==1
+female_survived = df[mask1 & mask2]
+
+sns.displot(female_survived.age)
+plt.title("survived count of female")
+plt.show()
+
+
+#get the non-survived count of female by age
+mask1 = df['sex']=="female"
+mask2 = df['survived']==0
+female_not_survived = df[mask1 & mask2]
+
+sns.displot(female_not_survived.age)
+plt.title("non-survived count of female")
+plt.show()
