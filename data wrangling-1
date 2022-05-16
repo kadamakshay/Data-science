@@ -1,0 +1,47 @@
+#data wrangling 1
+
+import pandas as pd #work with data / data handeling
+import numpy as np #numerical methods 
+import matplotlib.pyplot as plt #plotting the graph
+import seaborn as sns # plotting graph 
+
+#read the dataset 
+
+df = pd.read_csv(r"C:\Users\lenovo\Desktop\data science Assignments\dataset\Iris.csv") 
+print(df.head(15))
+
+#Describe the dataset 
+print(df.describe())
+
+#information of the dataset 
+
+print(df.info())
+
+#shape of the data
+print(df.shape)
+
+#data types of the data
+print(df.dtypes)
+
+#check for null values
+print(df.isnull().sum())
+
+#data normalization (Feature Scalling)
+from sklearn.preprocessing import StandardScaler
+features = ["SepalLengthCm" , "SepalWidthCm" ,"PetalLengthCm" ,"PetalWidthCm"]
+sc_x = StandardScaler()
+df[features] = sc_x.fit_transform(df[features])
+print(df.head())
+
+#data types // then make it correct
+print(df.dtypes)
+
+#convert categorical varibale into numbers / quantitative variable
+print(df.Species.value_counts())
+
+#labelEncoding
+from sklearn.preprocessing import LabelEncoder
+le = LabelEncoder()
+df.Species = le.fit_transform(df.Species)
+print(df.head())
+print(df.Species.value_counts())
