@@ -1,0 +1,111 @@
+#descriptive statistics (central tendancy mean, mode, median)
+
+#import required libraries 
+
+import pandas as pd 
+import numpy as np 
+import seaborn as sns 
+import matplotlib.pyplot as plt
+
+df = pd.read_csv(r"C:\Users\lenovo\Desktop\data science Assignments\dataset\Iris.csv")
+print(df.head())
+
+
+#minimum 
+print("minimum")
+print("Minimum value of Sepal Length: ", df['SepalLengthCm'].min())
+print("Minimum value of Sepal Width: ", df['SepalWidthCm'].min())
+print("Minimum value of Petal Length: ", df['PetalLengthCm'].min())
+print("Minimum value of Petal Width: ", df['PetalWidthCm'].min())
+
+#maximum
+print("Maximum")
+print("Maximum value of Sepal Length: ", df['SepalLengthCm'].max())
+print("Maximum value of Sepal Width: ", df['SepalWidthCm'].max())
+print("Maximum value of Petal Length: ", df['PetalLengthCm'].max())
+print("Maximum value of Petal Width: ", df['PetalWidthCm'].max())
+
+
+#mean 
+
+print("Mean")
+print("Mean  of Sepal Length: ", df['SepalLengthCm'].mean())
+print("Mean of Sepal Width: ", df['SepalWidthCm'].mean())
+print("Mean of Petal Length: ", df['PetalLengthCm'].mean())
+print("Mean of Petal Width: ", df['PetalWidthCm'].mean())
+
+
+
+#standard deviation 
+import statistics
+
+print("Median")
+print("Median  of Sepal Length: ", df['SepalLengthCm'].median())
+print("Median  of Sepal Width: ", df['SepalLengthCm'].median())
+print("Median  of Petal Length: ", df['SepalLengthCm'].median())
+print("Median  of Petal Width: ", df['SepalLengthCm'].median())
+
+
+
+#calculate the Mean , Min, Max,std by grouping the Species
+
+print("Min")
+print(df.groupby("Species")['SepalLengthCm','SepalWidthCm','PetalLengthCm','PetalWidthCm'].min())
+
+print("Mean")
+print(df.groupby("Species")['SepalLengthCm','SepalWidthCm','PetalLengthCm','PetalWidthCm'].mean())
+
+
+print("Max")
+print(df.groupby("Species")['SepalLengthCm','SepalWidthCm','PetalLengthCm','PetalWidthCm'].max())
+
+
+print("Standard Deviation")
+print(df.groupby("Species")['SepalLengthCm','SepalWidthCm','PetalLengthCm','PetalWidthCm'].std())
+
+
+
+print("Median")
+print(df.groupby("Species")['SepalLengthCm','SepalWidthCm','PetalLengthCm','PetalWidthCm'].median())
+
+
+print("Percentile For Sepal Length ")
+
+print("0th Percentile for Sepal Length : ", df['SepalLengthCm'].quantile(0))
+print("0th Percentile for Sepal Length : ", df['SepalLengthCm'].quantile(0.25))
+print("0th Percentile for Sepal Length : ", df['SepalLengthCm'].quantile(0.50))
+print("0th Percentile for Sepal Length : ", df['SepalLengthCm'].quantile(0.75))
+print("0th Percentile for Sepal Length : ", df['SepalLengthCm'].quantile(1))
+
+
+
+print("Percentile For Sepal Width ")
+
+print("0th Percentile for Sepal Width : ", df['SepalWidthCm'].quantile(0))
+print("0th Percentile for Sepal Width : ", df['SepalWidthCm'].quantile(0.25))
+print("0th Percentile for Sepal Width : ", df['SepalWidthCm'].quantile(0.50))
+print("0th Percentile for Sepal Width : ", df['SepalWidthCm'].quantile(0.75))
+print("0th Percentile for Sepal Width : ", df['SepalWidthCm'].quantile(1))
+
+
+
+
+
+print("Percentile For Petal Length ")
+
+print("0th Percentile for Petal Length : ", df['PetalLengthCm'].quantile(0))
+print("0th Percentile for Petal Length : ", df['PetalLengthCm'].quantile(0.25))
+print("0th Percentile for Petal Length : ", df['PetalLengthCm'].quantile(0.50))
+print("0th Percentile for Petal Length : ", df['PetalLengthCm'].quantile(0.75))
+print("0th Percentile for Petal Length : ", df['PetalLengthCm'].quantile(1))
+
+
+
+
+print("Percentile For Petal Width ")
+
+print("0th Percentile for Petal Width : ", df['PetalWidthCm'].quantile(0))
+print("0th Percentile for Petal Width : ", df['PetalWidthCm'].quantile(0.25))
+print("0th Percentile for Petal Width : ", df['PetalWidthCm'].quantile(0.50))
+print("0th Percentile for Petal Width : ", df['PetalWidthCm'].quantile(0.75))
+print("0th Percentile for Petal Width : ", df['PetalWidthCm'].quantile(1))
